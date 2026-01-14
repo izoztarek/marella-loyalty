@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>Marella Loyalty</title>
+  <style>
+    body{
+      font-family: Tahoma, sans-serif;
+      background:#0f172a;
+      color:white;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      margin:0;
+    }
+    .card{
+      background:#1e293b;
+      padding:30px;
+      border-radius:14px;
+      text-align:center;
+      width:320px;
+      box-shadow:0 0 20px rgba(0,0,0,.5);
+    }
+    button{
+      background:#22c55e;
+      border:none;
+      padding:12px 20px;
+      border-radius:10px;
+      color:black;
+      font-size:16px;
+      cursor:pointer;
+      margin-top:10px;
+    }
+    .msg{
+      margin-top:15px;
+      font-size:15px;
+      line-height:1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>برنامج الولاء</h2>
+    <p>اضغط لتسجيل زيارتك</p>
+    <button onclick="visit()">تسجيل الزيارة</button>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <script>
+    const cid = localStorage.getItem("cid") || Math.random().toString(36).substring(2);
+    localStorage.setItem("cid", cid);
+
+    async function visit(){
+      const res = await fetch("/visit/" + cid);
+      const data = await res.json();
+
+      if(data.code){
+        document.getElementById("msg").innerHTML =
+          data.msg + "<br><strong>الكود الخاص بك: " + data.code + "</strong>";
+      }else if(data.left !== undefined){
+        document.getElementById("msg").innerHTML =
+          data.msg + "<br>باقي لك " + data.left + " زيارات للوجبة المجانية.";
+      }else{
+        document.getElementById("msg").innerHTML = data.msg;
+      }
+    }
+  </script>
+
+</body>
+</html>
