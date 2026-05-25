@@ -1,69 +1,1144 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Marella Loyalty</title>
-  <style>
-    body{
-      font-family: Tahoma, sans-serif;
-      background:#0f172a;
-      color:white;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      height:100vh;
-    }
-    .card{
-      background:#1e293b;
-      padding:30px;
-      border-radius:12px;
-      text-align:center;
-      width:320px;
-      box-shadow:0 0 20px rgba(0,0,0,.4);
-    }
-    button{
-      background:#22c55e;
-      border:none;
-      padding:12px 20px;
-      border-radius:8px;
-      color:black;
-      font-size:16px;
-      cursor:pointer;
-    }
-    .msg{margin-top:15px;font-size:15px;}
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h2>برنامج الولاء</h2>
-    <p>اضغط لتسجيل زيارتك</p>
-    <button onclick="visit()">تسجيل الزيارة</button>
-    <div class="msg" id="msg"></div>
-  </div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Thrills - Premium Dessert Menu</title>
+    
+    <link rel="preload" as="image" href="m_logo.png">
+    <link rel="preload" as="image" href="base-bg.jpg">
+    <link rel="preload" as="image" href="assets/mini/mini1.jpg">
+    <link rel="preload" as="image" href="assets/v60/v601.jpg">
+    <link rel="preload" as="image" href="assets/coldbrew/coldbrew1.jpg">
+    <link rel="preload" as="image" href="assets/matcha/matcha1.jpg">
+    <link rel="preload" as="image" href="assets/waffle/waffle1.jpg">
+    <link rel="preload" as="image" href="assets/milkshake/milkshake1.jpg">
+    <link rel="preload" as="image" href="assets/special/special1.jpg">
 
-  <script>
-    let id = localStorage.getItem("client_id");
-    if(!id){
-      id = Math.random().toString(36).substring(2);
-      localStorage.setItem("client_id", id);
-    }
-
-    function visit(){
-      fetch("https://marella-loyalty.onrender.com/visit/" + id)
-      .then(res => res.json())
-      .then(data => {
-        if(data.code){
-          document.getElementById("msg").innerHTML =
-            data.msg + "<br>🎟 كودك: <b>"+data.code+"</b>";
-        }else{
-          document.getElementById("msg").innerText =
-            data.msg + " — باقي " + data.left + " زيارات";
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #494a67; 
+            color: #f5f5f4;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
-      })
-      .catch(()=>{
-        document.getElementById("msg").innerText = "⚠️ في مشكلة في الاتصال بالسيرفر";
-      });
-    }
-  </script>
+        .brand-font {
+            font-family: 'Fredoka', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(73, 74, 103, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-card {
+            background-color: #e7b5c5;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: none !important;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+            will-change: transform;
+        }
+        .section-image-frame {
+            box-shadow: none !important;
+            filter: none !important;
+            background-color: rgba(73, 74, 103, 0.4) !important;
+        }
+        .scroll-reveal {
+            opacity: 0.1;
+            transform: translateY(12px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+            will-change: opacity, transform;
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .scroll-focused-element {
+            transform: scale(1.04) !important;
+            background-color: #e7b5c5 !important;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3) !important;
+            z-index: 20;
+        }
+        .lock-scroll {
+            overflow: hidden !important;
+            height: 100vh !important;
+        }
+        .preview-container {
+            position: relative;
+            width: 240px;
+            height: 340px;
+            margin: auto;
+        }
+        .layer-graphic {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.2s ease;
+            box-shadow: none !important;
+            filter: none !important;
+        }
+        .inner-layer-graphic {
+            position: absolute;
+            width: 140px;
+            height: auto;
+            top: 4%;
+            left: 50%;
+            transform: translateX(-50%) scale(0.95);
+            object-fit: contain;
+            transition: opacity 0.2s ease;
+            z-index: 25;
+            mix-blend-mode: multiply;
+            opacity: 0.92;
+            box-shadow: none !important;
+            filter: none !important;
+        }
+        .pure-image-option {
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            outline: none !important;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-top: -12px !important;
+        }
+        .pure-image-option img {
+            width: 100%;
+            max-width: 45px;
+            height: auto;
+            margin: 0 auto;
+            object-fit: contain;
+            transition: transform 0.2s ease;
+        }
+        @media (min-width: 768px) {
+            .pure-image-option img {
+                max-width: 65px;
+            }
+        }
+        .pure-image-option.active-option {
+            transform: scale(1.05);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(73, 74, 103, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(254, 240, 138, 0.3);
+            border-radius: 9999px;
+        }
+        .category-text-badge {
+            background: rgba(254, 240, 138, 0.2);
+            color: #fef08a;
+            border: 1px solid rgba(254, 240, 138, 0.4);
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+        .category-text-badge.active-badge {
+            background: #fef08a;
+            color: #494a67;
+            transform: scale(1.03);
+        }
+        
+        /* IMAGE LOADING COMPONENT OPTIMIZATIONS */
+        img {
+            content-visibility: auto;
+            image-rendering: -webkit-optimize-contrast;
+        }
+        .img-loading-placeholder {
+            background-color: rgba(73, 74, 103, 0.3);
+            transition: opacity 0.2s ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-yellow-200 selection:text-purple-950">
+
+    <div class="relative z-10 min-h-screen flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        
+        <header class="w-full flex flex-col items-center justify-center pt-6 pb-6 border-b border-white/10 mb-8">
+            <div class="flex items-center justify-center mb-3">
+                <img src="m_logo.png" alt="Thrills Logo" width="176" height="176" class="h-36 sm:h-44 w-auto object-contain transition-transform duration-500 hover:scale-105" loading="eager" decoding="async" fetchpriority="high">
+            </div>
+            <h1 class="brand-font text-3xl sm:text-4xl font-bold tracking-wide text-center text-yellow-100">
+                Feel the chill, love the thrill
+            </h1>
+            <p class="text-xs tracking-[0.2em] font-medium text-purple-200/60 uppercase mt-1">Refined Dessert Architecture</p>
+        </header>
+
+        <main class="flex-grow">
+            <div id="main-menu-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                
+                <div class="scroll-reveal glass-card rounded-2xl overflow-hidden cursor-pointer flex flex-col group relative" onclick="openIceCreamBuilder()">
+                    <div class="relative w-full aspect-square overflow-hidden bg-[#494a67]/30 section-image-frame img-loading-placeholder">
+                        <img src="base-bg.jpg" alt="Ice Cream Laboratory" width="300" height="300" loading="eager" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-80 !shadow-none !filter-none" style="box-shadow: none !important; filter: none !important;" onerror="this.src='base-bg.jpg'">
+                        <div class="absolute top-2.5 right-2.5 px-2 py-0.5 text-[9px] font-bold tracking-wider rounded bg-[#494a67]/80 backdrop-blur text-yellow-200 border border-white/10 uppercase">
+                            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i>Lab Builder
+                        </div>
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between border-t border-white/5">
+                        <div>
+                            <h3 class="brand-font text-sm sm:text-base font-bold text-purple-950 tracking-tight transition-colors">Ice Cream Laboratory</h3>
+                            <p class="text-[11px] sm:text-xs text-purple-900 line-clamp-2 mt-1 leading-relaxed font-light">Interactive customized thin cylindrical premium churn system</p>
+                        </div>
+                        <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center text-xs font-semibold text-purple-950 group-hover:translate-x-1 transition-transform">
+                            Launch Customizer <i class="fa-solid fa-chevron-right text-[10px] ml-1.5"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scroll-reveal glass-card rounded-2xl overflow-hidden cursor-pointer flex flex-col group relative" onclick="openStaticViewer('mini', 'Mini Ice Cream Assortment', 3)">
+                    <div class="relative w-full aspect-square overflow-hidden bg-[#494a67]/30 section-image-frame img-loading-placeholder">
+                        <img src="assets/mini/mini1.jpg" alt="Mini Ice Cream" width="300" height="300" loading="eager" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-80" onerror="this.src='base-bg.jpg'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between border-t border-white/5">
+                        <div>
+                            <h3 class="brand-font text-sm sm:text-base font-bold text-purple-950 tracking-tight transition-colors">Mini Ice Cream Assortment</h3>
+                            <p class="text-[11px] sm:text-xs text-purple-900 line-clamp-2 mt-1 leading-relaxed font-light">Curated rich baseline collection across premium catalog segments</p>
+                        </div>
+                        <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center text-xs font-semibold text-purple-950 group-hover:translate-x-1 transition-transform">
+                            View Selections <i class="fa-solid fa-chevron-right text-[10px] ml-1.5"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scroll-reveal glass-card rounded-2xl overflow-hidden cursor-pointer flex flex-col group relative" onclick="openStaticViewer('v60', 'V60 Brews', 3)">
+                    <div class="relative w-full aspect-square overflow-hidden bg-[#494a67]/30 section-image-frame img-loading-placeholder">
+                        <img src="assets/v60/v601.jpg" alt="V60" width="300" height="300" loading="eager" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-80" onerror="this.src='base-bg.jpg'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between border-t border-white/5">
+                        <div>
+                            <h3 class="brand-font text-sm sm:text-base font-bold text-purple-950 tracking-tight transition-colors">V60 Brews</h3>
+                            <p class="text-[11px] sm:text-xs text-purple-900 line-clamp-2 mt-1 leading-relaxed font-light">Artisanal hand-poured precision single origin clean extracts</p>
+                        </div>
+                        <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center text-xs font-semibold text-purple-950 group-hover:translate-x-1 transition-transform">
+                            View Selections <i class="fa-solid fa-chevron-right text-[10px] ml-1.5"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scroll-reveal glass-card rounded-2xl overflow-hidden cursor-pointer flex flex-col group relative" onclick="openStaticViewer('coldbrew', 'Cold Brew Formula', 3)">
+                    <div class="relative w-full aspect-square overflow-hidden bg-[#494a67]/30 section-image-frame img-loading-placeholder">
+                        <img src="assets/coldbrew/coldbrew1.jpg" alt="Cold Brew" width="300" height="300" loading="eager" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-80" onerror="this.src='base-bg.jpg'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between border-t border-white/5">
+                        <div>
+                            <h3 class="brand-font text-sm sm:text-base font-bold text-purple-950 tracking-tight transition-colors">Cold Brew Formula</h3>
+                            <p class="text-[11px] sm:text-xs text-purple-900 line-clamp-2 mt-1 leading-relaxed font-light">Slow steeped low-acid smooth signature cold coffee derivatives</p>
+                        </div>
+                        <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center text-xs font-semibold text-purple-950 group-hover:translate-x-1 transition-transform">
+                            View Selections <i class="fa-solid fa-chevron-right text-[10px] ml-1.5"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scroll-reveal glass-card rounded-2xl overflow-hidden cursor-pointer flex flex-col group relative" onclick="openStaticViewer('matcha', 'Matcha Essences', 3)">
+                    <div class="relative w-full aspect-square overflow-hidden bg-[#494a67]/30 section-image-frame img-loading-placeholder">
+                        <img src="assets/matcha/matcha1.jpg" alt="Matcha" width="300" height="300" loading="eager" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-80" onerror="this.src='base-bg.jpg'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between border-t border-white/5">
+                        <div>
+                            <h3 class="brand-font text-sm sm:text-base font-bold text-purple-950 tracking-tight transition-colors">Matcha Essences</h3>
+                            <p class="text-[11px] sm:text-xs text-purple-900 line-clamp-2 mt-1 leading-relaxed font-light">Shade-grown stone-ground ceremonial grade luxury green teas</p>
+                        </div>
+                        <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center text-xs font-semibold text-purple-950 group-hover:translate-x-1 transition-transform">
+                            View Selections <i class="fa-solid fa-chevron-right text-[10px] ml-1.5"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scroll-reveal glass-card rounded-2xl overflow-hidden cursor-pointer flex flex-col group relative" onclick="openHybridViewer('waffle', 'Tree Waffle Matrix', 3, 'waffle')">
+                    <div class="relative w-full aspect-square overflow-hidden bg-[#494a67]/30 section-image-frame img-loading-placeholder">
+                        <img src="assets/waffle/waffle1.jpg" alt="Tree Waffle" width="300" height="300" loading="eager" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-80" onerror="this.src='base-bg.jpg'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between border-t border-white/5">
+                        <div>
+                            <h3 class="brand-font text-sm sm:text-base font-bold text-purple-950 tracking-tight transition-colors">Tree Waffle Matrix</h3>
+                            <p class="text-[11px] sm:text-xs text-purple-900 line-clamp-2 mt-1 leading-relaxed font-light">Geometric crisp lattice bars configured to customizable profiles</p>
+                        </div>
+                        <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center text-xs font-semibold text-purple-950 group-hover:translate-x-1 transition-transform">
+                            Explore Options <i class="fa-solid fa-chevron-right text-[10px] ml-1.5"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scroll-reveal glass-card rounded-2xl overflow-hidden cursor-pointer flex flex-col group relative" onclick="openHybridViewer('milkshake', 'Milkshake Formulation', 3, 'milkshake')">
+                    <div class="relative w-full aspect-square overflow-hidden bg-[#494a67]/30 section-image-frame img-loading-placeholder">
+                        <img src="assets/milkshake/milkshake1.jpg" alt="Milkshake" width="300" height="300" loading="eager" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-80" onerror="this.src='base-bg.jpg'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between border-t border-white/5">
+                        <div>
+                            <h3 class="brand-font text-sm sm:text-base font-bold text-purple-950 tracking-tight transition-colors">Milkshake Formulation</h3>
+                            <p class="text-[11px] sm:text-xs text-purple-900 line-clamp-2 mt-1 leading-relaxed font-light">Velvety hand-spun heavy cream hyper blended bases architectures</p>
+                        </div>
+                        <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center text-xs font-semibold text-purple-950 group-hover:translate-x-1 transition-transform">
+                            View Selections <i class="fa-solid fa-chevron-right text-[10px] ml-1.5"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scroll-reveal glass-card rounded-2xl overflow-hidden cursor-pointer flex flex-col group relative" onclick="openStaticViewer('special', 'Special Conceptual Sips', 3)">
+                    <div class="relative w-full aspect-square overflow-hidden bg-[#494a67]/30 section-image-frame img-loading-placeholder">
+                        <img src="assets/special/special1.jpg" alt="Special Drinks" width="300" height="300" loading="eager" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-80" onerror="this.src='base-bg.jpg'">
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-between border-t border-white/5">
+                        <div>
+                            <h3 class="brand-font text-sm sm:text-base font-bold text-purple-950 tracking-tight transition-colors">Special Conceptual Sips</h3>
+                            <p class="text-[11px] sm:text-xs text-purple-900 line-clamp-2 mt-1 leading-relaxed font-light">In-house hyper tailored signature refreshments expressions</p>
+                        </div>
+                        <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center text-xs font-semibold text-purple-950 group-hover:translate-x-1 transition-transform">
+                            View Selections <i class="fa-solid fa-chevron-right text-[10px] ml-1.5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="w-full text-center py-8 text-xs text-purple-200/40 border-t border-white/5 mt-12">
+            &copy; 2026 Thrills. Crafting Next-Gen Taste Vectors.
+        </footer>
+    </div>
+
+    <div id="viewer-overlay" class="fixed inset-0 z-50 invisible opacity-0 transition-all duration-200 flex flex-col bg-[#494a67]/95 backdrop-blur-sm">
+        <div class="w-full px-6 py-4 flex items-center justify-between border-b border-white/10 bg-[#494a67]/40">
+            <h2 id="viewer-title" class="brand-font text-xl font-bold text-yellow-100">Menu Section</h2>
+            <button onclick="closeViewerOverlay()" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-purple-200 hover:text-white hover:bg-white/20 transition-all">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <div class="flex-grow overflow-y-auto px-4 py-6 flex flex-col items-center">
+            <div id="hybrid-cta-container" class="hidden w-full max-w-md mb-8 p-6 rounded-2xl border border-yellow-200/20 bg-gradient-to-b from-white/10 to-[#494a67]/40 text-center">
+                <h3 id="hybrid-cta-title" class="brand-font text-lg font-bold text-yellow-200 mb-2">Want to build your own?</h3>
+                <p class="text-xs text-purple-200/80 mb-5">Completely customize all layers, bases, sauces and flavors interactively.</p>
+                <button id="hybrid-cta-btn" class="w-full py-3.5 bg-yellow-200 hover:bg-yellow-300 text-[#494a67] font-bold rounded-xl transition-all transform active:scale-[0.98]">
+                    Launch Customizer
+                </button>
+            </div>
+
+            <div id="viewer-gallery-container" class="w-full max-w-md space-y-6"></div>
+        </div>
+    </div>
+
+    <div id="unified-builder" class="fixed inset-0 z-50 invisible opacity-0 transition-all duration-200 flex flex-col bg-[#494a67]/98 backdrop-blur-sm">
+        <div class="w-full px-6 py-4 flex items-center justify-between border-b border-white/10 bg-[#494a67]/40">
+            <div>
+                <h2 id="builder-title" class="brand-font text-lg font-bold text-yellow-100">Design Studio</h2>
+                <p id="builder-step-indicator" class="text-xs font-semibold text-purple-200/60 mt-0.5">Step 1 of 4</p>
+            </div>
+            <button onclick="closeStudioBuilder()" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-purple-200 hover:text-white hover:bg-white/20 transition-all">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <div class="flex-grow overflow-y-auto flex flex-col md:flex-row pb-32">
+            <div class="w-full md:w-1/2 flex flex-col items-center justify-center p-6 bg-[#494a67]/10 border-b md:border-b-0 md:border-r border-white/5">
+                <div class="preview-container bg-[#494a67]/40 rounded-3xl border border-white/10 p-4 overflow-hidden img-loading-placeholder">
+                    <img id="layer-base" width="240" height="340" loading="eager" decoding="async" class="layer-graphic opacity-0" alt="Base Layer" onerror="this.removeAttribute('src'); this.classList.add('opacity-0');">
+                    <img id="layer-coating" width="240" height="340" loading="eager" decoding="async" class="layer-graphic opacity-0" alt="Coating Layer" onerror="this.removeAttribute('src'); this.classList.add('opacity-0');">
+                    <img id="layer-inner" width="140" height="200" loading="eager" decoding="async" class="inner-layer-graphic opacity-0" alt="Inner Layer" onerror="this.removeAttribute('src'); this.classList.add('opacity-0');">
+                </div>
+                
+                <div id="live-selection-reporter" class="mt-4 w-full max-w-[240px] text-center bg-black/40 border border-white/10 p-3 rounded-xl text-xs font-mono space-y-1 text-yellow-100 hidden"></div>
+
+                <p id="builder-instruction" class="text-center text-xs text-purple-200 font-medium px-4 mt-4 bg-[#494a67]/60 py-1.5 px-3 rounded-full border border-white/5">Select structural core parameter</p>
+            </div>
+
+            <div class="w-full md:w-1/2 p-6 flex flex-col justify-between">
+                <div>
+                    <h3 id="panel-title" class="brand-font text-xl font-bold text-white mb-1">Options Layer</h3>
+                    <p id="panel-desc" class="text-xs text-purple-200/70 mb-4">Isolate selection vectors structural layout nodes.</p>
+                    
+                    <div id="options-viewport-grid" class="grid grid-cols-3 gap-4 max-h-none overflow-y-visible pr-1 py-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-0 inset-x-0 glass-panel border-t border-white/10 p-5 flex items-center justify-between z-30">
+            <button id="studio-back-btn" onclick="studioGoBack()" class="px-5 py-3.5 bg-white/10 hover:bg-white/20 text-purple-100 text-sm font-bold rounded-xl transition-all">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Back
+            </button>
+            <button id="studio-next-btn" onclick="studioNextStep()" class="px-8 py-3.5 bg-yellow-200 hover:bg-yellow-300 text-[#494a67] text-sm font-bold rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+                Next <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="summary-overlay" class="fixed inset-0 z-[60] invisible opacity-0 transition-all duration-200 flex items-center justify-center p-4 bg-[#494a67]/90 backdrop-blur-sm">
+        <div class="w-full max-w-md glass-panel rounded-3xl p-6 border border-white/10 text-center">
+            <div class="w-14 h-14 bg-yellow-200/20 text-yellow-200 border border-yellow-200/30 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+            <h3 class="brand-font text-2xl font-bold text-yellow-100">Formula Fully Created!</h3>
+            <p class="text-xs text-purple-200/70 mt-1 mb-4">Your custom structural recipe asset parameters</p>
+            <div id="summary-content" class="bg-[#494a67]/50 p-4 rounded-xl text-left border border-white/5 text-sm font-semibold tracking-wide text-purple-100 text-center"></div>
+            <button onclick="orderViaWhatsApp()" class="w-full mt-4 py-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2">
+                <i class="fa-brands fa-whatsapp text-lg"></i> Order on WhatsApp
+            </button>
+            <button onclick="clearAllOverlays()" class="w-full mt-3 py-3 bg-yellow-200 hover:bg-yellow-300 text-[#494a67] font-bold rounded-xl transition-all">
+                Done Exploring
+            </button>
+        </div>
+    </div>
+
+    <script defer>
+        const CONFIG = {
+            whatsapp: "201234567890",
+            currency: "EGP"
+        };
+
+        let builderMode = ""; 
+        let currentStep = 1;
+        let totalStepsCount = 4;
+        let selectedType = ""; 
+        
+        let selectionsCache = {
+            base: null,
+            type: null,
+            coating: null,
+            inner: null
+        };
+
+        let milkshakeState = {
+            step: 0,
+            base: null,       
+            category: null,   
+            mixSubStep: 1,    
+            selectedChocolates: [], 
+            selectedFruits: []      
+        };
+
+        let waffleState = {
+            step: 1,
+            base: { name: "Waffle", img: "waffle-base.png" },
+            sauce: null,
+            topping: null,
+            filling: null
+        };
+
+        const iceCreamMemoryCache = {};
+
+        const iceCreamManifest = [
+            "images/base/vanilla.png",
+            "images/base/chocolate.png",
+            "images/base/strawberry.png",
+            "images/base/pistachio.png",
+            "images/base/hazelnut.png",
+            "images/type/milk.jpg",
+            "images/type/dark.jpg",
+            "images/type/white.jpg",
+            "images/coating/milk_plain.png",
+            "images/coating/milk_pistachio.png",
+            "images/coating/dark_plain.png",
+            "images/coating/dark_pistachio.png",
+            "images/coating/white_plain.png",
+            "images/coating/white_pistachio.png",
+            "images/filling/chocolate.png",
+            "images/filling/lotus.png",
+            "images/filling/caramel.png",
+            "images/filling/pistachio.png",
+            "images/filling/hazelnut.png",
+            "images/filling/strawberry.png"
+        ];
+
+        function preloadIceCreamBuilderAssets() {
+            for (let i = 0; i < iceCreamManifest.length; i++) {
+                const path = iceCreamManifest[i];
+                if (!iceCreamMemoryCache[path]) {
+                    const memoryImg = new Image();
+                    memoryImg.src = path;
+                    iceCreamMemoryCache[path] = memoryImg;
+                }
+            }
+        }
+
+        const DOM = {
+            unifiedBuilder: document.getElementById("unified-builder"),
+            layerBase: document.getElementById("layer-base"),
+            layerCoating: document.getElementById("layer-coating"),
+            layerInner: document.getElementById("layer-inner"),
+            optionsViewportGrid: document.getElementById("options-viewport-grid"),
+            nextBtn: document.getElementById("studio-next-btn"),
+            liveSelectionReporter: document.getElementById("live-selection-reporter"),
+            viewerOverlay: document.getElementById("viewer-overlay"),
+            viewerTitle: document.getElementById("viewer-title"),
+            viewerGalleryContainer: document.getElementById("viewer-gallery-container"),
+            hybridCtaContainer: document.getElementById("hybrid-cta-container"),
+            hybridCtaBtn: document.getElementById("hybrid-cta-btn"),
+            builderStepIndicator: document.getElementById("builder-step-indicator"),
+            panelTitle: document.getElementById("panel-title"),
+            panelDesc: document.getElementById("panel-desc"),
+            builderInstruction: document.getElementById("builder-instruction"),
+            summaryOverlay: document.getElementById("summary-overlay"),
+            summaryContent: document.getElementById("summary-content")
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const items = document.querySelectorAll(".scroll-reveal");
+            
+            const sharedObserver = new IntersectionObserver((entries) => {
+                let checkScrollFocus = false;
+                
+                for (let i = 0; i < entries.length; i++) {
+                    const entry = entries[i];
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        checkScrollFocus = true;
+                    } else {
+                        entry.target.classList.remove("visible");
+                    }
+                }
+
+                if (checkScrollFocus) {
+                    calculateSynchronizedFocus();
+                }
+            }, { threshold: 0.05, rootMargin: "0px 0px 100px 0px" });
+
+            for (let i = 0; i < items.length; i++) {
+                sharedObserver.observe(items[i]);
+            }
+
+            function calculateSynchronizedFocus() {
+                let currentFocusTarget = null;
+                let minimumDistance = Infinity;
+                const centerPointY = window.innerHeight / 2;
+
+                for (let i = 0; i < items.length; i++) {
+                    const item = items[i];
+                    const box = item.getBoundingClientRect();
+                    const elementCenterY = box.top + (box.height / 2);
+                    const distanceToCenter = Math.abs(centerPointY - elementCenterY);
+
+                    if (distanceToCenter < minimumDistance && box.top > 0 && box.bottom < window.innerHeight + 150) {
+                        minimumDistance = distanceToCenter;
+                        currentFocusTarget = item;
+                    }
+                }
+
+                if (currentFocusTarget) {
+                    const targetTop = currentFocusTarget.offsetTop;
+                    for (let i = 0; i < items.length; i++) {
+                        const item = items[i];
+                        if (Math.abs(item.offsetTop - targetTop) < 20) {
+                            if (!item.classList.contains("scroll-focused-element")) {
+                                item.classList.add("scroll-focused-element");
+                            }
+                        } else {
+                            item.classList.remove("scroll-focused-element");
+                        }
+                    }
+                } else {
+                    for (let i = 0; i < items.length; i++) {
+                        items[i].classList.remove("scroll-focused-element");
+                    }
+                }
+            }
+
+            let scrollTimeout;
+            window.addEventListener("scroll", () => {
+                if (scrollTimeout) cancelAnimationFrame(scrollTimeout);
+                scrollTimeout = requestAnimationFrame(calculateSynchronizedFocus);
+            }, { passive: true });
+        });
+
+        function openStaticViewer(folder, titleText, count) {
+            document.body.classList.add("lock-scroll");
+            DOM.hybridCtaContainer.classList.add("hidden");
+            DOM.viewerTitle.innerText = titleText;
+            
+            const fragment = document.createDocumentFragment();
+            for (let i = 1; i <= count; i++) {
+                appendGalleryNode(fragment, folder, `${folder}${i}.jpg`, `Catalog Profile Vector 0${i}`);
+            }
+            DOM.viewerGalleryContainer.innerHTML = "";
+            DOM.viewerGalleryContainer.appendChild(fragment);
+            
+            DOM.viewerOverlay.classList.remove("invisible", "opacity-0");
+        }
+
+        function openHybridViewer(folder, titleText, count, customMode) {
+            document.body.classList.add("lock-scroll");
+            DOM.viewerTitle.innerText = titleText;
+            
+            const fragment = document.createDocumentFragment();
+            for (let i = 1; i <= count; i++) {
+                appendGalleryNode(fragment, folder, `${folder}${i}.jpg`, `Pre-built Edition Framework 0${i}`);
+            }
+            DOM.viewerGalleryContainer.innerHTML = "";
+            DOM.viewerGalleryContainer.appendChild(fragment);
+
+            DOM.hybridCtaContainer.classList.remove("hidden");
+            DOM.hybridCtaBtn.onclick = () => {
+                closeViewerOverlay();
+                if (customMode === 'waffle') openWaffleBuilder();
+                if (customMode === 'milkshake') openMilkshakeBuilder();
+            };
+
+            DOM.viewerOverlay.classList.remove("invisible", "opacity-0");
+        }
+
+        function appendGalleryNode(parentFragment, folder, filename, label) {
+            const wrap = document.createElement("div");
+            wrap.className = "w-full rounded-2xl border border-white/10 overflow-hidden flex flex-col img-loading-placeholder";
+            wrap.style.backgroundColor = "#e7b5c5";
+            wrap.innerHTML = `
+                <div class="w-full aspect-[4/3] bg-[#494a67] relative flex items-center justify-center overflow-hidden">
+                    <img src="assets/${folder}/${filename}" alt="${label}" width="400" height="300" loading="eager" decoding="async" class="w-full h-full object-cover" onerror="this.src='base-bg.jpg'">
+                </div>
+                <div class="p-3 flex items-center justify-between border-t border-white/5">
+                    <span class="text-xs font-semibold tracking-wide text-purple-950">${label}</span>
+                    <span class="text-[10px] font-bold px-2 py-0.5 bg-[#494a67] text-yellow-200 rounded border border-white/5">Menu Matrix</span>
+                </div>
+            `;
+            parentFragment.appendChild(wrap);
+        }
+
+        function closeViewerOverlay() {
+            document.body.classList.remove("lock-scroll");
+            DOM.viewerOverlay.classList.add("invisible", "opacity-0");
+        }
+
+        function resetStudioCache(mode, maxSteps) {
+            builderMode = mode;
+            currentStep = 1;
+            totalStepsCount = maxSteps;
+            selectedType = "";
+            selectionsCache = { base: null, type: null, coating: null, inner: null };
+            
+            DOM.layerBase.removeAttribute('src'); DOM.layerBase.classList.add("opacity-0");
+            DOM.layerCoating.removeAttribute('src'); DOM.layerCoating.classList.add("opacity-0");
+            DOM.layerInner.removeAttribute('src'); DOM.layerInner.classList.add("opacity-0");
+            
+            document.body.classList.add("lock-scroll");
+            DOM.unifiedBuilder.classList.remove("invisible", "opacity-0");
+            updateLiveSelectionText();
+        }
+
+        function closeStudioBuilder() {
+            document.body.classList.remove("lock-scroll");
+            DOM.unifiedBuilder.classList.add("invisible", "opacity-0");
+        }
+
+        function updateLiveSelectionText() {
+            let segments = [];
+
+            if (builderMode === "icecream") {
+                if (selectionsCache.base) segments.push(`<div>Base: ${selectionsCache.base.name}</div>`);
+                if (selectionsCache.type) segments.push(`<div>Chocolate: ${selectionsCache.type.name}</div>`);
+                if (selectionsCache.coating) segments.push(`<div>Coating: ${selectionsCache.coating.name}</div>`);
+                if (selectionsCache.inner) segments.push(`<div>Filling: ${selectionsCache.inner.name}</div>`);
+            } else if (builderMode === "milkshake") {
+                if (milkshakeState.base) segments.push(`<div>Base: ${milkshakeState.base.name}</div>`);
+                if (milkshakeState.category) segments.push(`<div>Category: ${milkshakeState.category}</div>`);
+                if (milkshakeState.selectedChocolates.length > 0) {
+                    let cn = milkshakeState.selectedChocolates.map(x => x.name).join(", ");
+                    segments.push(`<div>Chocolates: ${cn}</div>`);
+                }
+                if (milkshakeState.selectedFruits.length > 0) {
+                    let fn = milkshakeState.selectedFruits.map(x => x.name).join(", ");
+                    segments.push(`<div>Fruits: ${fn}</div>`);
+                }
+            } else if (builderMode === "waffle") {
+                if (waffleState.base) segments.push(`<div>Base: ${waffleState.base.name}</div>`);
+                if (waffleState.sauce) segments.push(`<div>Sauce: ${waffleState.sauce.name}</div>`);
+                if (waffleState.topping) segments.push(`<div>Topping: ${waffleState.topping.name}</div>`);
+                if (waffleState.filling) segments.push(`<div>Filling: ${waffleState.filling.name}</div>`);
+            }
+
+            if (segments.length > 0) {
+                DOM.liveSelectionReporter.innerHTML = segments.join("");
+                DOM.liveSelectionReporter.classList.remove("hidden");
+            } else {
+                DOM.liveSelectionReporter.classList.add("hidden");
+            }
+        }
+
+        function evaluateNextButtonState() {
+            let allowed = false;
+            if (builderMode === "icecream") {
+                if (currentStep === 1 && selectionsCache.base) allowed = true;
+                if (currentStep === 2 && selectionsCache.type) allowed = true;
+                if (currentStep === 3 && selectionsCache.coating) allowed = true;
+                if (currentStep === 4 && selectionsCache.inner) allowed = true;
+            } else if (builderMode === "waffle") {
+                if (waffleState.step === 1) allowed = true;
+                if (waffleState.step === 2 && waffleState.sauce) allowed = true;
+                if (waffleState.step === 3 && waffleState.topping) allowed = true;
+                if (waffleState.step === 4) allowed = true; 
+            } else if (builderMode === "milkshake") {
+                if (milkshakeState.step === 0) allowed = true;
+                if (milkshakeState.step === 1 && milkshakeState.base) allowed = true;
+                if (milkshakeState.step === 2 && milkshakeState.category) allowed = true;
+                if (milkshakeState.step === 3) {
+                    if (milkshakeState.category === 'fruits' && milkshakeState.selectedFruits.length > 0) allowed = true;
+                    if (milkshakeState.category === 'chocolate' && milkshakeState.selectedChocolates.length > 0) allowed = true;
+                    if (milkshakeState.category === 'mix') {
+                        if (milkshakeState.mixSubStep === 1 && milkshakeState.selectedChocolates.length > 0) allowed = true;
+                        if (milkshakeState.mixSubStep === 2 && milkshakeState.selectedFruits.length > 0) allowed = true;
+                    }
+                }
+            }
+            DOM.nextBtn.disabled = !allowed;
+            updateLiveSelectionText();
+        }
+
+        function openIceCreamBuilder() {
+            preloadIceCreamBuilderAssets();
+            resetStudioCache("icecream", 4);
+            renderIceCreamStep();
+        }
+
+        function renderIceCreamStep() {
+            const fragment = document.createDocumentFragment();
+            evaluateNextButtonState();
+
+            DOM.builderStepIndicator.innerText = `Step ${currentStep} of ${totalStepsCount}`;
+
+            if (currentStep === 1) {
+                updateStudioStepHeader("Choose Base", "Select thin cylindrical foundational inner core track parameters flavor mapping profiles.", "Choose structural ice cream base core parameters");
+                createOptionImageCard(fragment, "images/base/vanilla.png", () => selectBase("images/base/vanilla.png", "Vanilla"), selectionsCache.base?.src === "images/base/vanilla.png");
+                createOptionImageCard(fragment, "images/base/chocolate.png", () => selectBase("images/base/chocolate.png", "Chocolate"), selectionsCache.base?.src === "images/base/chocolate.png");
+                createOptionImageCard(fragment, "images/base/strawberry.png", () => selectBase("images/base/strawberry.png", "Strawberry"), selectionsCache.base?.src === "images/base/strawberry.png");
+                createOptionImageCard(fragment, "images/base/pistachio.png", () => selectBase("images/base/pistachio.png", "Pistachio"), selectionsCache.base?.src === "images/base/pistachio.png");
+                createOptionImageCard(fragment, "images/base/hazelnut.png", () => selectBase("images/base/hazelnut.png", "Hazelnut"), selectionsCache.base?.src === "images/base/hazelnut.png");
+            } 
+            else if (currentStep === 2) {
+                updateStudioStepHeader("Choose Chocolate Type", "Primary fluid hot dip compound formula structural setup track configuration.", "Select chocolate sub-bath structural matrix type link");
+                createOptionImageCard(fragment, "images/type/milk.jpg", () => selectType("images/type/milk.jpg", "milk", "Milk"), selectedType === "milk");
+                createOptionImageCard(fragment, "images/type/dark.jpg", () => selectType("images/type/dark.jpg", "dark", "Dark"), selectedType === "dark");
+                createOptionImageCard(fragment, "images/type/white.jpg", () => selectType("images/type/white.jpg", "white", "White"), selectedType === "white");
+            } 
+            else if (currentStep === 3) {
+                updateStudioStepHeader("Choose Coating", "Snap hardening textured layer applied flawlessly covering base architectures.", "Select protective external crunch coating shell layer configurations");
+                const pathPlain = `images/coating/${selectedType}_plain.png`;
+                const pathPistachio = `images/coating/${selectedType}_pistachio.png`;
+                createOptionImageCard(fragment, pathPlain, () => selectCoating(pathPlain, "Plain"), selectionsCache.coating?.src === pathPlain);
+                createOptionImageCard(fragment, pathPistachio, () => selectCoating(pathPistachio, "Pistachio"), selectionsCache.coating?.src === pathPistachio);
+            } 
+            else if (currentStep === 4) {
+                updateStudioStepHeader("Choose Filling", "Concentrated liquid injectable vectors embedded into the architecture parameters.", "Choose your hidden inner pocket injection fluid parameter profile");
+                createOptionImageCard(fragment, "images/filling/chocolate.png", () => selectFilling("images/filling/chocolate.png", "Chocolate"), selectionsCache.inner?.src === "images/filling/chocolate.png");
+                createOptionImageCard(fragment, "images/filling/lotus.png", () => selectFilling("images/filling/lotus.png", "Lotus"), selectionsCache.inner?.src === "images/filling/lotus.png");
+                createOptionImageCard(fragment, "images/filling/caramel.png", () => selectFilling("images/filling/caramel.png", "Caramel"), selectionsCache.inner?.src === "images/filling/caramel.png");
+                createOptionImageCard(fragment, "images/filling/pistachio.png", () => selectFilling("images/filling/pistachio.png", "Pistachio"), selectionsCache.inner?.src === "images/filling/pistachio.png");
+                createOptionImageCard(fragment, "images/filling/hazelnut.png", () => selectFilling("images/filling/hazelnut.png", "Hazelnut"), selectionsCache.inner?.src === "images/filling/hazelnut.png");
+                createOptionImageCard(fragment, "images/filling/strawberry.png", () => selectFilling("images/filling/strawberry.png", "Strawberry"), selectionsCache.inner?.src === "images/filling/strawberry.png");
+            }
+
+            DOM.optionsViewportGrid.innerHTML = "";
+            DOM.optionsViewportGrid.appendChild(fragment);
+        }
+
+        function selectBase(srcPath, nameText) {
+            if (DOM.layerBase.getAttribute('src') !== srcPath) {
+                DOM.layerBase.src = srcPath;
+                DOM.layerBase.classList.remove("opacity-0");
+            }
+            selectionsCache.base = { src: srcPath, name: nameText };
+            renderIceCreamStep();
+        }
+        function selectType(imgSrc, typeKey, nameText) {
+            selectedType = typeKey;
+            selectionsCache.type = { src: imgSrc, name: nameText };
+            renderIceCreamStep();
+        }
+        function selectCoating(srcPath, nameText) {
+            if (DOM.layerCoating.getAttribute('src') !== srcPath) {
+                DOM.layerCoating.src = srcPath;
+                DOM.layerCoating.classList.remove("opacity-0");
+            }
+            selectionsCache.coating = { src: srcPath, name: nameText };
+            renderIceCreamStep();
+        }
+        function selectFilling(srcPath, nameText) {
+            if (DOM.layerInner.getAttribute('src') !== srcPath) {
+                DOM.layerInner.src = srcPath;
+                DOM.layerInner.classList.remove("opacity-0");
+            }
+            selectionsCache.inner = { src: srcPath, name: nameText };
+            renderIceCreamStep();
+        }
+
+        function openMilkshakeBuilder() {
+            builderMode = "milkshake";
+            milkshakeState = {
+                step: 0, base: null, category: null, mixSubStep: 1,
+                selectedChocolates: [], selectedFruits: []
+            };
+            
+            document.body.classList.add("lock-scroll");
+            DOM.unifiedBuilder.classList.remove("invisible", "opacity-0");
+            
+            DOM.layerBase.src = "milkshake-empty.png"; DOM.layerBase.classList.remove("opacity-0");
+            DOM.layerCoating.removeAttribute('src'); DOM.layerCoating.classList.add("opacity-0");
+            DOM.layerInner.removeAttribute('src'); DOM.layerInner.classList.add("opacity-0");
+            
+            renderMilkshakeFlow();
+        }
+
+        function renderMilkshakeFlow() {
+            const fragment = document.createDocumentFragment();
+            evaluateNextButtonState();
+            
+            let currentDisplayStep = milkshakeState.step + 1;
+            let currentTotalSteps = 4;
+            DOM.builderStepIndicator.innerText = `Step ${currentDisplayStep} of ${currentTotalSteps}`;
+
+            const targetBaseSrc = milkshakeState.base ? milkshakeState.base.img : "milkshake-empty.png";
+            if (DOM.layerBase.getAttribute('src') !== targetBaseSrc) {
+                DOM.layerBase.src = targetBaseSrc;
+                DOM.layerBase.classList.remove("opacity-0");
+            }
+
+            let activeIngredients = [...milkshakeState.selectedChocolates, ...milkshakeState.selectedFruits];
+            if (activeIngredients.length > 0) {
+                const targetCoatingSrc = activeIngredients[activeIngredients.length - 1].img;
+                if (DOM.layerCoating.getAttribute('src') !== targetCoatingSrc) {
+                    DOM.layerCoating.src = targetCoatingSrc;
+                    DOM.layerCoating.classList.remove("opacity-0");
+                }
+            } else {
+                DOM.layerCoating.removeAttribute('src');
+                DOM.layerCoating.classList.add("opacity-0");
+            }
+
+            if (milkshakeState.step === 0) {
+                updateStudioStepHeader("Milkshake Initialization", "Review clear foundation profile setup architectures parameters.", "Tap Next to begin formulation architecture steps flow");
+            }
+            else if (milkshakeState.step === 1) {
+                updateStudioStepHeader("Choose Blended Base", "Configure rich foundational churn core density parameters maps.", "Select structural base liquid composition matrix flow");
+                createOptionImageCard(fragment, "milkshake-base-vanilla.png", () => {
+                    milkshakeState.base = { id: 'vanilla', name: "Vanilla Milkshake", img: "milkshake-base-vanilla.png" };
+                    renderMilkshakeFlow();
+                }, milkshakeState.base?.id === 'vanilla');
+                
+                createOptionImageCard(fragment, "milkshake-base-chocolate.png", () => {
+                    milkshakeState.base = { id: 'chocolate', name: "Chocolate Milkshake", img: "milkshake-base-chocolate.png" };
+                    renderMilkshakeFlow();
+                }, milkshakeState.base?.id === 'chocolate');
+            }
+            else if (milkshakeState.step === 2) {
+                updateStudioStepHeader("Select Track Category", "Isolate component tracks parameters profiles layout matrix node links safely.", "Choose track routing path");
+                
+                const cats = [
+                    { id: 'fruits', name: 'Fruits' },
+                    { id: 'chocolate', name: 'Chocolate' },
+                    { id: 'mix', name: 'Mix' }
+                ];
+                cats.forEach(c => {
+                    const badge = document.createElement("div");
+                    badge.className = `category-text-badge text-sm uppercase tracking-wider brand-font ${milkshakeState.category === c.id ? "active-badge" : ""}`;
+                    badge.innerText = c.name;
+                    badge.onclick = () => {
+                        milkshakeState.category = c.id;
+                        milkshakeState.mixSubStep = 1;
+                        milkshakeState.selectedFruits = [];
+                        milkshakeState.selectedChocolates = [];
+                        renderMilkshakeFlow();
+                    };
+                    fragment.appendChild(badge);
+                });
+            }
+            else if (milkshakeState.step === 3) {
+                if (milkshakeState.category === 'fruits') {
+                    updateStudioStepHeader("Fruits Inclusions", "Tap to toggle active natural fruit structural extract parameters.", "Select active fruits elements");
+                    const fruitsList = ['strawberry', 'blueberry', 'mango', 'mint', 'watermelon', 'melon', 'kiwi', 'lemon'];
+                    fruitsList.forEach(f => {
+                        let imgName = `${f}.png`;
+                        let isSel = milkshakeState.selectedFruits.some(x => x.id === f);
+                        createOptionImageCard(fragment, imgName, () => {
+                            if (isSel) milkshakeState.selectedFruits = milkshakeState.selectedFruits.filter(x => x.id !== f);
+                            else milkshakeState.selectedFruits.push({ id: f, name: f.charAt(0).toUpperCase() + f.slice(1), img: imgName });
+                            renderMilkshakeFlow();
+                        }, isSel);
+                    });
+                }
+                else if (milkshakeState.category === 'chocolate') {
+                    updateStudioStepHeader("Chocolate Crumb Inclusions", "Toggle active particulate crunch brand component structures.", "Select active chocolate elements");
+                    const chocList = ['snickers', 'kitkat', 'galaxy', 'bounty', 'twix', 'kinder', 'mms', 'twinkies', 'todo', 'oreo', 'lotus', 'hohos'];
+                    chocList.forEach(c => {
+                        let imgName = `${c}.png`;
+                        let isSel = milkshakeState.selectedChocolates.some(x => x.id === c);
+                        createOptionImageCard(fragment, imgName, () => {
+                            if (isSel) milkshakeState.selectedChocolates = milkshakeState.selectedChocolates.filter(x => x.id !== c);
+                            else milkshakeState.selectedChocolates.push({ id: c, name: c.charAt(0).toUpperCase() + c.slice(1), img: imgName });
+                            renderMilkshakeFlow();
+                        }, isSel);
+                    });
+                }
+                else if (milkshakeState.category === 'mix') {
+                    if (milkshakeState.mixSubStep === 1) {
+                        updateStudioStepHeader("Hybrid Phase 1: Chocolates", "Select primary layer component node parameters for multi-track configurations.", "Choose multi-track chocolate inclusions");
+                        const chocList = ['snickers', 'kitkat', 'galaxy', 'bounty', 'twix', 'kinder', 'mms', 'twinkies', 'todo', 'oreo', 'lotus', 'hohos'];
+                        chocList.forEach(c => {
+                            let imgName = `${c}.png`;
+                            let isSel = milkshakeState.selectedChocolates.some(x => x.id === c);
+                            createOptionImageCard(fragment, imgName, () => {
+                                if (isSel) milkshakeState.selectedChocolates = milkshakeState.selectedChocolates.filter(x => x.id !== c);
+                                else milkshakeState.selectedChocolates.push({ id: c, name: c.charAt(0).toUpperCase() + c.slice(1), img: imgName });
+                                renderMilkshakeFlow();
+                            }, isSel);
+                        });
+                    } else {
+                        updateStudioStepHeader("Hybrid Phase 2: Fruits", "Complete multi-path structural compound assembly maps parameters.", "Choose final phase fruits parameters components");
+                        const fruitsList = ['strawberry', 'blueberry', 'mango', 'mint', 'watermelon', 'melon', 'kiwi', 'lemon'];
+                        fruitsList.forEach(f => {
+                            let imgName = `${f}.png`;
+                            let isSel = milkshakeState.selectedFruits.some(x => x.id === f);
+                            createOptionImageCard(fragment, imgName, () => {
+                                if (isSel) milkshakeState.selectedFruits = milkshakeState.selectedFruits.filter(x => x.id !== f);
+                                else milkshakeState.selectedFruits.push({ id: f, name: f.charAt(0).toUpperCase() + f.slice(1), img: imgName });
+                                renderMilkshakeFlow();
+                            }, isSel);
+                        });
+                    }
+                }
+            }
+
+            DOM.optionsViewportGrid.innerHTML = "";
+            DOM.optionsViewportGrid.appendChild(fragment);
+        }
+
+        function openWaffleBuilder() {
+            builderMode = "waffle";
+            waffleState = {
+                step: 1,
+                base: { name: "Waffle", img: "waffle-base.png" },
+                sauce: null, topping: null, filling: null
+            };
+
+            document.body.classList.add("lock-scroll");
+            DOM.unifiedBuilder.classList.remove("invisible", "opacity-0");
+            
+            renderWaffleFlow();
+        }
+
+        function renderWaffleFlow() {
+            const fragment = document.createDocumentFragment();
+            evaluateNextButtonState();
+
+            DOM.builderStepIndicator.innerText = `Step ${waffleState.step} of 4`;
+
+            if (DOM.layerBase.getAttribute('src') !== waffleState.base.img) {
+                DOM.layerBase.src = waffleState.base.img;
+                DOM.layerBase.classList.remove("opacity-0");
+            }
+
+            if (waffleState.sauce) {
+                if (DOM.layerCoating.getAttribute('src') !== waffleState.sauce.img) {
+                    DOM.layerCoating.src = waffleState.sauce.img;
+                    DOM.layerCoating.classList.remove("opacity-0");
+                }
+            } else {
+                DOM.layerCoating.removeAttribute('src');
+                DOM.layerCoating.classList.add("opacity-0");
+            }
+
+            if (waffleState.topping) {
+                if (DOM.layerInner.getAttribute('src') !== waffleState.topping.img) {
+                    DOM.layerInner.src = waffleState.topping.img;
+                    DOM.layerInner.classList.remove("opacity-0");
+                }
+            } else {
+                DOM.layerInner.removeAttribute('src');
+                DOM.layerInner.classList.add("opacity-0");
+            }
+
+            if (waffleState.step === 4 && waffleState.filling) {
+                if (DOM.layerInner.getAttribute('src') !== waffleState.filling.img) {
+                    DOM.layerInner.src = waffleState.filling.img; 
+                }
+            }
+
+            if (waffleState.step === 1) {
+                updateStudioStepHeader("Lattice Waffle Foundation", "Review golden framework profile structural blueprint parameters configuration maps.", "Confirm your baseline frame parameters tracking setup flow");
+                createOptionImageCard(fragment, "waffle-base.png", () => {
+                    renderWaffleFlow();
+                }, true);
+            }
+            else if (waffleState.step === 2) {
+                updateStudioStepHeader("Choose Sauce Compound", "Fluid cocoa viscous distribution tracking configuration layers profiles maps.", "Select specific primary sauce element parameters");
+                createOptionImageCard(fragment, "waffle-sauce-chocolate.png", () => {
+                    waffleState.sauce = { name: "Chocolate Sauce", img: "waffle-sauce-chocolate.png" };
+                    renderWaffleFlow();
+                }, waffleState.sauce?.img === "waffle-sauce-chocolate.png");
+
+                createOptionImageCard(fragment, "waffle-sauce-white.png", () => {
+                    waffleState.sauce = { name: "White Sauce", img: "waffle-sauce-white.png" };
+                    renderWaffleFlow();
+                }, waffleState.sauce?.img === "waffle-sauce-white.png");
+
+                createOptionImageCard(fragment, "waffle-sauce-caramel.png", () => {
+                    waffleState.sauce = { name: "Caramel Sauce", img: "waffle-sauce-caramel.png" };
+                    renderWaffleFlow();
+                }, waffleState.sauce?.img === "waffle-sauce-caramel.png");
+            }
+            else if (waffleState.step === 3) {
+                updateStudioStepHeader("Choose Crisp Toppings", "Particulate crunch shards scatter maps layer setup configurations.", "Select topping component asset options cleanly");
+                createOptionImageCard(fragment, "waffle-top-nuts.png", () => {
+                    waffleState.topping = { name: "Nuts", img: "waffle-top-nuts.png" };
+                    renderWaffleFlow();
+                }, waffleState.topping?.img === "waffle-top-nuts.png");
+
+                createOptionImageCard(fragment, "waffle-top-sprinkles.png", () => {
+                    waffleState.topping = { name: "Sprinkles", img: "waffle-top-sprinkles.png" };
+                    renderWaffleFlow();
+                }, waffleState.topping?.img === "waffle-top-sprinkles.png");
+
+                createOptionImageCard(fragment, "waffle-top-mix.png", () => {
+                    waffleState.topping = { name: "Mix", img: "waffle-top-mix.png" };
+                    renderWaffleFlow();
+                }, waffleState.topping?.img === "waffle-top-mix.png");
+            }
+            else if (waffleState.step === 4) {
+                updateStudioStepHeader("Optional Flavor Filling Influx", "Secondary flavor pocket parameter nodes embedment selections paths cleanly.", "Select hidden injection formula asset (Optional)");
+                createOptionImageCard(fragment, "waffle-fill-chocolate.png", () => {
+                    waffleState.filling = { name: "Chocolate Filling", img: "waffle-fill-chocolate.png" };
+                    renderWaffleFlow();
+                }, waffleState.filling?.img === "waffle-fill-chocolate.png");
+
+                createOptionImageCard(fragment, "waffle-fill-strawberry.png", () => {
+                    waffleState.filling = { name: "Strawberry Filling", img: "waffle-fill-strawberry.png" };
+                    renderWaffleFlow();
+                }, waffleState.filling?.img === "waffle-fill-strawberry.png");
+
+                createOptionImageCard(fragment, "waffle-fill-nutella.png", () => {
+                    waffleState.filling = { name: "Nutella Filling", img: "waffle-fill-nutella.png" };
+                    renderWaffleFlow();
+                }, waffleState.filling?.img === "waffle-fill-nutella.png");
+            }
+
+            DOM.optionsViewportGrid.innerHTML = "";
+            DOM.optionsViewportGrid.appendChild(fragment);
+        }
+
+        function studioGoBack() {
+            if (builderMode === "icecream") {
+                if (currentStep === 1) closeStudioBuilder();
+                else { currentStep--; renderIceCreamStep(); }
+            } 
+            else if (builderMode === "milkshake") {
+                if (milkshakeState.step === 0) closeStudioBuilder();
+                else if (milkshakeState.step === 3 && milkshakeState.category === 'mix' && milkshakeState.mixSubStep === 2) {
+                    milkshakeState.mixSubStep = 1;
+                    renderMilkshakeFlow();
+                } else {
+                    milkshakeState.step--;
+                    renderMilkshakeFlow();
+                }
+            } 
+            else if (builderMode === "waffle") {
+                if (waffleState.step === 1) closeStudioBuilder();
+                else { waffleState.step--; renderWaffleFlow(); }
+            }
+        }
+
+        function studioNextStep() {
+            if (builderMode === "icecream") {
+                if (currentStep < totalStepsCount) { currentStep++; renderIceCreamStep(); }
+                else launchFormulaSummaryOutput();
+            } 
+            else if (builderMode === "milkshake") {
+                if (milkshakeState.step === 3) {
+                    if (milkshakeState.category === 'mix' && milkshakeState.mixSubStep === 1) {
+                        milkshakeState.mixSubStep = 2;
+                        renderMilkshakeFlow();
+                    } else {
+                        launchFormulaSummaryOutput();
+                    }
+                } else {
+                    milkshakeState.step++;
+                    renderMilkshakeFlow();
+                }
+            } 
+            else if (builderMode === "waffle") {
+                if (waffleState.step < 4) { waffleState.step++; renderWaffleFlow(); }
+                else launchFormulaSummaryOutput();
+            }
+        }
+
+        function updateStudioStepHeader(title, desc, instruction) {
+            DOM.panelTitle.innerText = title;
+            DOM.panelDesc.innerText = desc;
+            DOM.builderInstruction.innerText = instruction;
+        }
+
+        function createOptionImageCard(targetFragment, imgSrcPath, clickHandlerCallback, activeFlagIndicator) {
+            const wrapperCard = document.createElement("div");
+            wrapperCard.className = `pure-image-option flex items-center justify-center ${activeFlagIndicator ? "active-option" : ""}`;
+            
+            const optionImg = document.createElement("img");
+            if (builderMode === "icecream" && iceCreamMemoryCache[imgSrcPath]) {
+                optionImg.src = iceCreamMemoryCache[imgSrcPath].src;
+            } else {
+                optionImg.src = imgSrcPath;
+            }
+            optionImg.alt = "Option Graphic Node";
+            optionImg.width = 65;
+            optionImg.height = 65;
+            optionImg.loading = "eager";
+            optionImg.setAttribute("decoding", "async");
+            optionImg.onerror = () => { optionImg.src = 'base-bg.jpg'; };
+            
+            wrapperCard.appendChild(optionImg);
+            wrapperCard.onclick = clickHandlerCallback;
+            targetFragment.appendChild(wrapperCard);
+        }
+
+        function launchFormulaSummaryOutput() {
+            let summaryTextString = "";
+
+            if (builderMode === "icecream") {
+                summaryTextString = `${selectionsCache.base?.name || 'Ice Cream Base'} + ${selectionsCache.type?.name || 'Chocolate'} + ${selectionsCache.coating?.name || 'Coating'} + ${selectionsCache.inner?.name || 'Filling'}`;
+            } 
+            else if (builderMode === "milkshake") {
+                let baseName = milkshakeState.base ? milkshakeState.base.name : "Milkshake";
+                let itemsList = [];
+                if (milkshakeState.category === 'fruits' || milkshakeState.category === 'mix') {
+                    milkshakeState.selectedFruits.forEach(x => itemsList.push(x.name));
+                }
+                if (milkshakeState.category === 'chocolate' || milkshakeState.category === 'mix') {
+                    milkshakeState.selectedChocolates.forEach(x => itemsList.push(x.name));
+                }
+                summaryTextString = baseName + (itemsList.length > 0 ? " + " + itemsList.join(" + ") : "");
+            } 
+            else if (builderMode === "waffle") {
+                let parts = ["Waffle"];
+                if (waffleState.sauce) parts.push(waffleState.sauce.name);
+                if (waffleState.topping) parts.push(waffleState.topping.name);
+                if (waffleState.filling) parts.push(waffleState.filling.name);
+                summaryTextString = parts.join(" + ");
+            }
+
+            DOM.summaryContent.innerText = summaryTextString;
+            DOM.summaryOverlay.classList.remove("invisible", "opacity-0");
+        }
+
+        function orderViaWhatsApp() {
+            const text = DOM.summaryContent.innerText.trim();
+            if (!text) return;
+            const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent("🍨 Thrills Order\n\n" + text)}`;
+            window.open(url, "_blank", "noopener,noreferrer");
+        }
+
+        function clearAllOverlays() {
+            DOM.summaryOverlay.classList.add("invisible", "opacity-0");
+            closeStudioBuilder();
+            closeViewerOverlay();
+        }
+    </script>
 </body>
 </html>
