@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- ================================================================== -->
+  <!-- EASY CUSTOMIZATION AREA                                            -->
+  <!-- ================================================================== -->
+  <!--
+    Almost everything you will want to change lives in ONE of these places:
+
+    1. SITE CONFIG  (the <script> block directly below)
+       Doctor name, short name, specialty, location
+       Phone, email, address, booking link
+       Instagram handle and URL, WhatsApp link
+       Every image path on the site
+
+    2. PAGE TEXT  (search this file for  ✎ EDIT )
+       ✎ EDIT: HERO           ✎ EDIT: BIO             ✎ EDIT: CREDENTIALS
+       ✎ EDIT: EXPERTISE      ✎ EDIT: CASES           ✎ EDIT: BEFORE / AFTER
+       ✎ EDIT: PHILOSOPHY     ✎ EDIT: TIMELINE        ✎ EDIT: BEYOND DENTISTRY
+       ✎ EDIT: TESTIMONIALS   ✎ EDIT: CONTACT
+
+    3. SEO  (search for  ✎ EDIT: SEO )
+       Page title, meta description, Open Graph, structured data
+
+    Colours and fonts: top of style.css (CSS variables).
+    Images: put files in /images using the filenames in SITE CONFIG.
+    Any image that is missing automatically shows a labelled placeholder.
+  -->
+
+  <script>
+    document.documentElement.classList.add('js');
+
+    /* ================================================================
+       SITE CONFIG  ✎ EDIT
+       Text here is automatically placed wherever it appears on the page.
+       ================================================================ */
+    window.SITE = {
+      doctor: {
+        name:      "Dr. [Doctor Name]",       // Full name: hero, about, contact
+        shortName: "Dr. [Name]",              // Logo, intro screen, footer
+        title:     "Dentist / Specialist",    // e.g. "Prosthodontist", "Cosmetic Dentist"
+        basedIn:   "[City, Country]"          // Shown in the hero
+      },
+
+      contact: {
+        phone:      "[Phone Number]",         // e.g. "+20 100 000 0000" (becomes tap-to-call)
+        email:      "[Email]",                // e.g. "hello@yourdomain.com" (becomes mailto link)
+        location:   "[Location]",             // Clinic address or area
+        bookingUrl: "#contact"                // Booking page, WhatsApp or calendar link
+      },
+
+      social: {
+        instagramHandle: "@username",
+        instagramUrl:    "#",                 // e.g. "https://instagram.com/username"
+        whatsappUrl:     "#"                  // e.g. "https://wa.me/201000000000"
+      },
+
+      /* ----------------------------------------------------------------
+         IMAGES — replace the files in /images, or change the paths here.
+         Recommended: portrait images 4:5, landscape 3:2, social 4:5.
+         ---------------------------------------------------------------- */
+      images: {
+        heroPortrait:  "images/doctor-hero.jpg",
+        aboutPortrait: "images/doctor-about.jpg",
+        clinic:        "images/clinic.jpg",           // Philosophy background
+        personal:      "images/doctor-personal.jpg",  // Beyond Dentistry
+
+        // Case gallery (the large images in "Selected Cases")
+        case01: "images/case-01.jpg",
+        case02: "images/case-02.jpg",
+        case03: "images/case-03.jpg",
+        case04: "images/case-04.jpg",
+        case05: "images/case-05.jpg",
+        case06: "images/case-06.jpg",
+
+        // Before / After shown inside each case-study window
+        case01Before: "images/case-01-before.jpg",  case01After: "images/case-01-after.jpg",
+        case02Before: "images/case-02-before.jpg",  case02After: "images/case-02-after.jpg",
+        case03Before: "images/case-03-before.jpg",  case03After: "images/case-03-after.jpg",
+        case04Before: "images/case-04-before.jpg",  case04After: "images/case-04-after.jpg",
+        case05Before: "images/case-05-before.jpg",  case05After: "images/case-05-after.jpg",
+        case06Before: "images/case-06-before.jpg",  case06After: "images/case-06-after.jpg",
+
+        // Before / After comparison sliders
+        before01: "images/before-01.jpg",
+        after01:  "images/after-01.jpg",
+        before02: "images/before-02.jpg",
+        after02:  "images/after-02.jpg",
+
+        // Social grid
+        social01: "images/social-01.jpg",
+        social02: "images/social-02.jpg",
+        social03: "images/social-03.jpg",
+        social04: "images/social-04.jpg",
+        social05: "images/social-05.jpg",
+        social06: "images/social-06.jpg"
+      }
+    };
+  </script>
+
+  <!-- ================================================================== -->
+  <!-- ✎ EDIT: SEO                                                         -->
+  <!-- ================================================================== -->
+  <title>Dr. [Doctor Name] — Dentist in [City] | Aesthetic &amp; Restorative Dentistry</title>
+  <meta name="description" content="[Meta description, 150–160 characters. Who you are, what you specialise in, and where you practise.]">
+  <link rel="canonical" href="https://www.example.com/">
+  <meta name="theme-color" content="#F7F3EC">
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Dr. [Doctor Name] — Dentist">
+  <meta property="og:description" content="[Short description for social sharing.]">
+  <meta property="og:url" content="https://www.example.com/">
+  <meta property="og:image" content="https://www.example.com/images/og-image.jpg">
+  <meta property="og:site_name" content="Dr. [Doctor Name]">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Structured data: replace every [PLACEHOLDER] before publishing -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dentist",
+    "name": "[Doctor or Practice Name]",
+    "description": "[Meta description]",
+    "url": "https://www.example.com/",
+    "image": "https://www.example.com/images/doctor-hero.jpg",
+    "telephone": "[PHONE NUMBER]",
+    "email": "[EMAIL]",
+    "medicalSpecialty": "[Specialty]",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "[Street Address]",
+      "addressLocality": "[City]",
+      "addressRegion": "[Region]",
+      "postalCode": "[Postal Code]",
+      "addressCountry": "[Country Code]"
+    },
+    "openingHours": "[e.g. Mo-Fr 09:00-18:00]",
+    "sameAs": ["https://www.instagram.com/[username]"]
+  }
+  </script>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231C1B19'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia,serif' font-size='34' fill='%23F3EDE3'%3ED%3C/text%3E%3C/svg%3E">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Opening curtain (shown briefly on load) -->
+  <div class="intro" aria-hidden="true">
+    <p class="intro__name" data-text="doctor.shortName">Dr. [Name]</p>
+    <span class="intro__line"></span>
+    <p class="intro__meta">Dentistry — Personal Portfolio</p>
+  </div>
+
+  <!-- ============================ NAVIGATION ============================ -->
+  <header class="nav">
+    <div class="nav__inner container">
+      <a class="nav__logo" href="#home" data-text="doctor.shortName">Dr. [Name]</a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#cases">Cases</a>
+        <a href="#journey">Journey</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a class="btn btn--line btn--sm nav__cta" href="#contact" data-href="contact.bookingUrl">Book consultation</a>
+
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu">
+        <span class="nav__toggle-label">Menu</span>
+        <span class="nav__toggle-icon" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile menu -->
+  <div class="menu" id="menu" aria-hidden="true">
+    <nav aria-label="Mobile">
+      <ol class="menu__links">
+        <li><a href="#home"><span>01</span>Home</a></li>
+        <li><a href="#about"><span>02</span>About</a></li>
+        <li><a href="#expertise"><span>03</span>Expertise</a></li>
+        <li><a href="#cases"><span>04</span>Cases</a></li>
+        <li><a href="#journey"><span>05</span>Journey</a></li>
+        <li><a href="#contact"><span>06</span>Contact</a></li>
+      </ol>
+    </nav>
+    <div class="menu__foot">
+      <a class="btn btn--solid" href="#contact" data-href="contact.bookingUrl">Book a consultation</a>
+      <div class="menu__meta">
+        <a href="#contact" data-mailto="contact.email" data-text="contact.email">[Email]</a>
+        <a href="#" data-href="social.instagramUrl" data-text="social.instagramHandle">@username</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- =============================== HERO =============================== -->
+    <!-- ✎ EDIT: HERO -->
+    <section class="hero" id="home" aria-label="Introduction">
+      <div class="hero__grid container">
+
+        <div class="hero__intro">
+          <p class="eyebrow hero__eyebrow" data-hero style="--d:.15s">
+            <span class="eyebrow__rule" aria-hidden="true"></span>Dentistry / Personal Portfolio
+          </p>
+          <h1 class="hero__title">
+            <span class="line"><span style="--d:.25s">Precision.</span></span>
+            <span class="line"><span style="--d:.37s">Designed for</span></span>
+            <span class="line"><span style="--d:.49s"><em>Your Smile.</em></span></span>
+          </h1>
+        </div>
+
+        <div class="hero__visual">
+          <div class="hero__frame" data-parallax="-0.05">
+            <span class="media hero__portrait" data-hero="image" style="--d:.3s"
+                  data-img="heroPortrait" data-eager
+                  data-label="Doctor Hero Image"
+                  data-alt="[Alt text: portrait of Dr. Doctor Name]"></span>
+          </div>
+          <p class="hero__caption" data-hero style="--d:.9s">
+            <span>Fig. 01</span>
+            <span>Portrait — <span data-text="doctor.name">Dr. [Doctor Name]</span></span>
+          </p>
+          <a class="hero__vertical" href="#about" data-hero style="--d:1s">01 — About</a>
+        </div>
+
+        <div class="hero__body">
+          <p class="hero__name" data-hero style="--d:.7s" data-text="doctor.name">Dr. [Doctor Name]</p>
+          <p class="hero__desc" data-hero style="--d:.8s">
+            Advanced dentistry focused on precision, aesthetics, and naturally beautiful results.
+          </p>
+          <div class="hero__ctas" data-hero style="--d:.9s">
+            <a class="btn btn--solid" href="#cases">Explore my work <span class="btn__arrow" aria-hidden="true"></span></a>
+            <a class="btn btn--line" href="#contact" data-href="contact.bookingUrl">Book a consultation</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__meta container" data-hero style="--d:1.1s">
+        <span>Based in <span data-text="doctor.basedIn">[City, Country]</span></span>
+        <span class="hero__scroll" aria-hidden="true"><span class="hero__scroll-line"></span>Scroll</span>
+        <a href="#about">01 — About</a>
+      </div>
+    </section>
+
+
+    <!-- =============================== ABOUT ============================== -->
+    <section class="about section" id="about">
+      <div class="container">
+        <header class="section-head">
+          <p class="index" data-reveal><span>01</span>— About</p>
+          <h2 class="display" data-reveal>Precision begins with <em>understanding.</em></h2>
+        </header>
+
+        <div class="about__grid">
+          <figure class="about__portrait">
+            <span class="media" data-reveal="image"
+                  data-img="aboutPortrait"
+                  data-label="Doctor Portrait"
+                  data-alt="[Alt text: Dr. Doctor Name in the clinic]"></span>
+            <figcaption class="fig-caption"><span>Fig. 02</span><span>In practice</span></figcaption>
+          </figure>
+
+          <div class="about__text">
+            <p class="about__name" data-reveal data-text="doctor.name">Dr. [Doctor Name]</p>
+            <p class="about__role" data-reveal data-text="doctor.title">Dentist / Specialist</p>
+
+            <!-- ✎ EDIT: BIO -->
+            <p class="about__lead" data-reveal>
+              [Opening line of your biography — who you are and the kind of dentistry you practise, in one or two sentences.]
+            </p>
+            <p class="about__body" data-reveal>
+              [Second paragraph — your training, the patients you care for, and what defines your approach. Keep it personal, specific and true to you.]
+            </p>
+
+            <!-- ✎ EDIT: CREDENTIALS (only list verified qualifications) -->
+            <dl class="credentials" data-reveal>
+              <div><dt>Education</dt><dd>[Placeholder]</dd></div>
+              <div><dt>Specialization</dt><dd>[Placeholder]</dd></div>
+              <div><dt>Experience</dt><dd>[Placeholder]</dd></div>
+              <div><dt>Location</dt><dd>[Placeholder]</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================= EXPERTISE ============================ -->
+    <!-- ✎ EDIT: EXPERTISE -->
+    <section class="expertise section" id="expertise">
+      <div class="container">
+        <header class="section-head section-head--split">
+          <p class="index" data-reveal><span>02</span>— Expertise</p>
+          <h2 class="display" data-reveal>Areas of <em>Expertise</em></h2>
+          <p class="section-head__aside" data-reveal>
+            [Optional one-line introduction to your clinical focus.]
+            <span class="count">(<span data-count-of=".exp">06</span>)</span>
+          </p>
+        </header>
+
+        <ol class="expertise__list">
+          <li class="exp" data-reveal>
+            <span class="exp__num">01</span>
+            <h3 class="exp__title">Cosmetic Dentistry</h3>
+            <p class="exp__desc">[Short description — e.g. how you approach veneers, bonding and whitening.]</p>
+            <span class="exp__rule" aria-hidden="true"></span>
+          </li>
+          <li class="exp" data-reveal>
+            <span class="exp__num">02</span>
+            <h3 class="exp__title">Restorative Dentistry</h3>
+            <p class="exp__desc">[Short description — e.g. crowns, inlays and rebuilding worn or damaged teeth.]</p>
+            <span class="exp__rule" aria-hidden="true"></span>
+          </li>
+          <li class="exp" data-reveal>
+            <span class="exp__num">03</span>
+            <h3 class="exp__title">Digital Smile Design</h3>
+            <p class="exp__desc">[Short description — e.g. how digital planning and mock-ups shape each treatment.]</p>
+            <span class="exp__rule" aria-hidden="true"></span>
+          </li>
+          <li class="exp" data-reveal>
+            <span class="exp__num">04</span>
+            <h3 class="exp__title">Implant Dentistry</h3>
+            <p class="exp__desc">[Short description — e.g. your approach to planning and restoring implants.]</p>
+            <span class="exp__rule" aria-hidden="true"></span>
+          </li>
+          <li class="exp" data-reveal>
+            <span class="exp__num">05</span>
+            <h3 class="exp__title">General Dentistry</h3>
+            <p class="exp__desc">[Short description — e.g. preventive care and long-term oral health.]</p>
+            <span class="exp__rule" aria-hidden="true"></span>
+          </li>
+          <li class="exp" data-reveal>
+            <span class="exp__num">06</span>
+            <h3 class="exp__title">[Your Specialty]</h3>
+            <p class="exp__desc">[Short description of a further area of focus.]</p>
+            <span class="exp__rule" aria-hidden="true"></span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+
+    <!-- =============================== CASES ============================== -->
+    <!--
+      ✎ EDIT: CASES
+      Each <article> is one case. Edit the caption, short description and the
+      hidden "case__details" block (shown in the case-study window).
+      Images: set case01 / case01Before / case01After etc. in SITE CONFIG.
+      Publish real cases only with the patient's written consent.
+    -->
+    <section class="cases section" id="cases">
+      <div class="container">
+        <header class="section-head section-head--split">
+          <p class="index" data-reveal><span>03</span>— Cases</p>
+          <h2 class="display" data-reveal>Selected <em>Cases</em></h2>
+          <p class="section-head__aside" data-reveal>
+            A closer look at precision, planning, and detail.
+            <span class="count">(<span data-count-of="[data-case]">06</span>)</span>
+          </p>
+        </header>
+
+        <div class="cases__grid">
+
+          <!-- CASE 01 -->
+          <article class="case case--a" data-case data-before="case01Before" data-after="case01After">
+            <button class="case__link" type="button" aria-haspopup="dialog" data-cursor="View">
+              <span class="media case__media" data-reveal="image" data-img="case01"
+                    data-label="Case Image 01" data-alt="[Alt text: case 01]"></span>
+            </button>
+            <div class="case__caption">
+              <div>
+                <p class="case__num">Case 01</p>
+                <h3 class="case__title">Smile Transformation</h3>
+              </div>
+              <p class="case__treatment">[Treatment]</p>
+            </div>
+            <p class="case__desc">[Editable description — one or two lines summarising the case.]</p>
+            <div class="case__details" hidden>
+              <dl>
+                <div><dt>Treatment</dt><dd>[Treatment performed — materials, number of units, number of visits.]</dd></div>
+                <div><dt>Approach</dt><dd>[How the case was planned — diagnostics, digital design, mock-up, sequencing.]</dd></div>
+                <div><dt>Result</dt><dd>[Describe the outcome in factual terms.]</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- CASE 02 -->
+          <article class="case case--b" data-case data-before="case02Before" data-after="case02After">
+            <button class="case__link" type="button" aria-haspopup="dialog" data-cursor="View">
+              <span class="media case__media" data-reveal="image" data-img="case02"
+                    data-label="Case Image 02" data-alt="[Alt text: case 02]"></span>
+            </button>
+            <div class="case__caption">
+              <div>
+                <p class="case__num">Case 02</p>
+                <h3 class="case__title">Full-Mouth Restoration</h3>
+              </div>
+              <p class="case__treatment">[Treatment]</p>
+            </div>
+            <p class="case__desc">[Editable description — one or two lines summarising the case.]</p>
+            <div class="case__details" hidden>
+              <dl>
+                <div><dt>Treatment</dt><dd>[Treatment performed — materials, number of units, number of visits.]</dd></div>
+                <div><dt>Approach</dt><dd>[How the case was planned — diagnostics, digital design, mock-up, sequencing.]</dd></div>
+                <div><dt>Result</dt><dd>[Describe the outcome in factual terms.]</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- CASE 03 -->
+          <article class="case case--c" data-case data-before="case03Before" data-after="case03After">
+            <button class="case__link" type="button" aria-haspopup="dialog" data-cursor="View">
+              <span class="media case__media" data-reveal="image" data-img="case03"
+                    data-label="Case Image 03" data-alt="[Alt text: case 03]"></span>
+            </button>
+            <div class="case__caption">
+              <div>
+                <p class="case__num">Case 03</p>
+                <h3 class="case__title">Digital Smile Design</h3>
+              </div>
+              <p class="case__treatment">[Treatment]</p>
+            </div>
+            <p class="case__desc">[Editable description — one or two lines summarising the case.]</p>
+            <div class="case__details" hidden>
+              <dl>
+                <div><dt>Treatment</dt><dd>[Treatment performed — materials, number of units, number of visits.]</dd></div>
+                <div><dt>Approach</dt><dd>[How the case was planned — diagnostics, digital design, mock-up, sequencing.]</dd></div>
+                <div><dt>Result</dt><dd>[Describe the outcome in factual terms.]</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- CASE 04 -->
+          <article class="case case--d" data-case data-before="case04Before" data-after="case04After">
+            <button class="case__link" type="button" aria-haspopup="dialog" data-cursor="View">
+              <span class="media case__media" data-reveal="image" data-img="case04"
+                    data-label="Case Image 04" data-alt="[Alt text: case 04]"></span>
+            </button>
+            <div class="case__caption">
+              <div>
+                <p class="case__num">Case 04</p>
+                <h3 class="case__title">Implant Restoration</h3>
+              </div>
+              <p class="case__treatment">[Treatment]</p>
+            </div>
+            <p class="case__desc">[Editable description — one or two lines summarising the case.]</p>
+            <div class="case__details" hidden>
+              <dl>
+                <div><dt>Treatment</dt><dd>[Treatment performed — materials, number of units, number of visits.]</dd></div>
+                <div><dt>Approach</dt><dd>[How the case was planned — diagnostics, digital design, mock-up, sequencing.]</dd></div>
+                <div><dt>Result</dt><dd>[Describe the outcome in factual terms.]</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- CASE 05 -->
+          <article class="case case--e" data-case data-before="case05Before" data-after="case05After">
+            <button class="case__link" type="button" aria-haspopup="dialog" data-cursor="View">
+              <span class="media case__media" data-reveal="image" data-img="case05"
+                    data-label="Case Image 05" data-alt="[Alt text: case 05]"></span>
+            </button>
+            <div class="case__caption">
+              <div>
+                <p class="case__num">Case 05</p>
+                <h3 class="case__title">Porcelain Veneers</h3>
+              </div>
+              <p class="case__treatment">[Treatment]</p>
+            </div>
+            <p class="case__desc">[Editable description — one or two lines summarising the case.]</p>
+            <div class="case__details" hidden>
+              <dl>
+                <div><dt>Treatment</dt><dd>[Treatment performed — materials, number of units, number of visits.]</dd></div>
+                <div><dt>Approach</dt><dd>[How the case was planned — diagnostics, digital design, mock-up, sequencing.]</dd></div>
+                <div><dt>Result</dt><dd>[Describe the outcome in factual terms.]</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- CASE 06 -->
+          <article class="case case--f" data-case data-before="case06Before" data-after="case06After">
+            <button class="case__link" type="button" aria-haspopup="dialog" data-cursor="View">
+              <span class="media case__media" data-reveal="image" data-img="case06"
+                    data-label="Case Image 06" data-alt="[Alt text: case 06]"></span>
+            </button>
+            <div class="case__caption">
+              <div>
+                <p class="case__num">Case 06</p>
+                <h3 class="case__title">[Case Name]</h3>
+              </div>
+              <p class="case__treatment">[Treatment]</p>
+            </div>
+            <p class="case__desc">[Editable description — one or two lines summarising the case.]</p>
+            <div class="case__details" hidden>
+              <dl>
+                <div><dt>Treatment</dt><dd>[Treatment performed — materials, number of units, number of visits.]</dd></div>
+                <div><dt>Approach</dt><dd>[How the case was planned — diagnostics, digital design, mock-up, sequencing.]</dd></div>
+                <div><dt>Result</dt><dd>[Describe the outcome in factual terms.]</dd></div>
+              </dl>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================== BEFORE / AFTER ========================= -->
+    <!-- ✎ EDIT: BEFORE / AFTER (images: before01, after01… in SITE CONFIG) -->
+    <section class="compare section" id="before-after" data-nav="#cases">
+      <div class="container">
+        <header class="section-head section-head--split">
+          <p class="index" data-reveal><span>04</span>— Before &amp; After</p>
+          <h2 class="display" data-reveal>Before <em>&amp;</em> After</h2>
+          <p class="section-head__aside" data-reveal>
+            Drag to compare. Comparisons shown are layout placeholders and do not depict real patients or results.
+          </p>
+        </header>
+
+        <div class="compare__list">
+
+          <article class="ba-card" data-reveal>
+            <div class="ba" data-compare>
+              <span class="media ba__layer ba__after" data-img="after01" data-label="After Image 01" data-alt="[Alt text: after treatment, comparison 01]"></span>
+              <span class="media media--alt ba__layer ba__before" data-img="before01" data-label="Before Image 01" data-alt="[Alt text: before treatment, comparison 01]"></span>
+              <span class="ba__tag ba__tag--before" aria-hidden="true">Before</span>
+              <span class="ba__tag ba__tag--after" aria-hidden="true">After</span>
+              <span class="ba__handle" aria-hidden="true">
+                <span class="ba__knob"><span class="ba__chev ba__chev--l"></span><span class="ba__chev ba__chev--r"></span></span>
+              </span>
+              <input class="ba__range" type="range" min="0" max="100" value="50" step="1" aria-label="Before and after comparison 01 — slide to reveal">
+            </div>
+            <div class="ba-card__meta">
+              <p class="ba-card__num">Comparison 01</p>
+              <h3 class="ba-card__title">[Treatment Name]</h3>
+              <dl class="ba-card__facts">
+                <div><dt>Treatment</dt><dd>[Placeholder]</dd></div>
+                <div><dt>Duration</dt><dd>[Placeholder]</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <article class="ba-card ba-card--reverse" data-reveal>
+            <div class="ba" data-compare>
+              <span class="media ba__layer ba__after" data-img="after02" data-label="After Image 02" data-alt="[Alt text: after treatment, comparison 02]"></span>
+              <span class="media media--alt ba__layer ba__before" data-img="before02" data-label="Before Image 02" data-alt="[Alt text: before treatment, comparison 02]"></span>
+              <span class="ba__tag ba__tag--before" aria-hidden="true">Before</span>
+              <span class="ba__tag ba__tag--after" aria-hidden="true">After</span>
+              <span class="ba__handle" aria-hidden="true">
+                <span class="ba__knob"><span class="ba__chev ba__chev--l"></span><span class="ba__chev ba__chev--r"></span></span>
+              </span>
+              <input class="ba__range" type="range" min="0" max="100" value="50" step="1" aria-label="Before and after comparison 02 — slide to reveal">
+            </div>
+            <div class="ba-card__meta">
+              <p class="ba-card__num">Comparison 02</p>
+              <h3 class="ba-card__title">[Treatment Name]</h3>
+              <dl class="ba-card__facts">
+                <div><dt>Treatment</dt><dd>[Placeholder]</dd></div>
+                <div><dt>Duration</dt><dd>[Placeholder]</dd></div>
+              </dl>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================ PHILOSOPHY ============================ -->
+    <!-- ✎ EDIT: PHILOSOPHY -->
+    <section class="philosophy" id="philosophy" data-nav="#cases" aria-labelledby="philosophy-title">
+      <div class="philosophy__bg" data-parallax="-0.14">
+        <span class="media media--dark" data-img="clinic"
+              data-label="Clinic / Dentistry Image"
+              data-alt="[Alt text: the clinic interior]"></span>
+      </div>
+
+      <div class="philosophy__inner container">
+        <p class="index index--light" data-reveal><span>05</span>— Philosophy</p>
+        <h2 class="philosophy__quote" id="philosophy-title" data-reveal>
+          Great dentistry should <em>never look artificial.</em>
+        </h2>
+        <div class="philosophy__foot">
+          <p class="philosophy__text" data-reveal>
+            [A short paragraph on your philosophy — how you balance function and aesthetics, and why natural results matter to you.]
+          </p>
+          <p class="philosophy__sign" data-reveal>— <span data-text="doctor.name">Dr. [Doctor Name]</span></p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================= JOURNEY ============================== -->
+    <!-- ✎ EDIT: TIMELINE (replace [20XX] with your real years) -->
+    <section class="journey section" id="journey">
+      <div class="container journey__grid">
+        <header class="journey__head">
+          <p class="index" data-reveal><span>06</span>— Journey</p>
+          <h2 class="display" data-reveal>The <em>Journey</em></h2>
+          <p class="journey__intro" data-reveal>[Optional sentence about the path that brought you to your current practice.]</p>
+        </header>
+
+        <div class="timeline">
+          <span class="timeline__progress" aria-hidden="true"></span>
+          <ol class="timeline__list">
+          <li class="tl" data-reveal>
+            <p class="tl__year">[20XX]</p>
+            <div>
+              <h3 class="tl__title">Education</h3>
+              <p class="tl__text">[Institution and qualification.]</p>
+            </div>
+          </li>
+          <li class="tl" data-reveal>
+            <p class="tl__year">[20XX]</p>
+            <div>
+              <h3 class="tl__title">Professional Training</h3>
+              <p class="tl__text">[Residency, internship or training programme.]</p>
+            </div>
+          </li>
+          <li class="tl" data-reveal>
+            <p class="tl__year">[20XX]</p>
+            <div>
+              <h3 class="tl__title">Advanced Certification</h3>
+              <p class="tl__text">[Certification and awarding body.]</p>
+            </div>
+          </li>
+          <li class="tl" data-reveal>
+            <p class="tl__year">[20XX]</p>
+            <div>
+              <h3 class="tl__title">Clinical Experience</h3>
+              <p class="tl__text">[Clinics or hospitals where you have practised.]</p>
+            </div>
+          </li>
+          <li class="tl" data-reveal>
+            <p class="tl__year">[20XX]</p>
+            <div>
+              <h3 class="tl__title">Current Practice</h3>
+              <p class="tl__text">[Where you practise today and your current focus.]</p>
+            </div>
+          </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========================= BEYOND DENTISTRY ========================= -->
+    <!-- ✎ EDIT: BEYOND DENTISTRY -->
+    <section class="beyond section" id="beyond" data-nav="#journey">
+      <div class="container beyond__grid">
+        <figure class="beyond__figure">
+          <span class="media" data-reveal="image" data-img="personal"
+                data-label="Personal Image"
+                data-alt="[Alt text: Dr. Doctor Name outside the clinic]"></span>
+          <figcaption class="fig-caption"><span>Fig. 03</span><span>[Caption]</span></figcaption>
+        </figure>
+
+        <div class="beyond__text">
+          <p class="index" data-reveal><span>07</span>— Personal</p>
+          <h2 class="display" data-reveal>Beyond <em>Dentistry</em></h2>
+          <p class="beyond__lead" data-reveal>
+            [A short, human paragraph about who you are outside the clinic — what you value, what inspires you, and what you bring to every appointment.]
+          </p>
+
+          <div class="pillars" data-reveal>
+            <div class="pillar">
+              <h3>Philosophy</h3>
+              <p>[One sentence on what guides your work.]</p>
+            </div>
+            <div class="pillar">
+              <h3>Patients</h3>
+              <p>[One sentence on how you care for patients.]</p>
+            </div>
+            <div class="pillar">
+              <h3>Learning</h3>
+              <p>[One sentence on continuous education.]</p>
+            </div>
+            <div class="pillar">
+              <h3>Passion</h3>
+              <p>[One sentence on why you love dentistry.]</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================== TESTIMONIALS =========================== -->
+    <!--
+      ✎ EDIT: TESTIMONIALS
+      Replace with genuine reviews only, shared with each patient's permission.
+      Remove the "Placeholder" tag when done.
+    -->
+    <section class="testimonials section" id="testimonials" data-nav="#journey">
+      <div class="container">
+        <header class="section-head section-head--split">
+          <p class="index" data-reveal><span>08</span>— Testimonials</p>
+          <h2 class="display" data-reveal>In Their <em>Words</em></h2>
+          <p class="section-head__aside" data-reveal>Reserved for genuine patient reviews.</p>
+        </header>
+
+        <div class="quotes" data-stagger>
+          <figure class="quote" data-reveal>
+            <span class="quote__tag">Placeholder 01</span>
+            <span class="quote__mark" aria-hidden="true">“</span>
+            <blockquote class="quote__text"><p>[PATIENT TESTIMONIAL PLACEHOLDER]</p></blockquote>
+            <figcaption class="quote__author">
+              <span>[PATIENT NAME / INITIALS]</span>
+              <span class="quote__treat">[Treatment]</span>
+            </figcaption>
+          </figure>
+
+          <figure class="quote" data-reveal>
+            <span class="quote__tag">Placeholder 02</span>
+            <span class="quote__mark" aria-hidden="true">“</span>
+            <blockquote class="quote__text"><p>[PATIENT TESTIMONIAL PLACEHOLDER]</p></blockquote>
+            <figcaption class="quote__author">
+              <span>[PATIENT NAME / INITIALS]</span>
+              <span class="quote__treat">[Treatment]</span>
+            </figcaption>
+          </figure>
+
+          <figure class="quote" data-reveal>
+            <span class="quote__tag">Placeholder 03</span>
+            <span class="quote__mark" aria-hidden="true">“</span>
+            <blockquote class="quote__text"><p>[PATIENT TESTIMONIAL PLACEHOLDER]</p></blockquote>
+            <figcaption class="quote__author">
+              <span>[PATIENT NAME / INITIALS]</span>
+              <span class="quote__treat">[Treatment]</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================== SOCIAL ============================== -->
+    <section class="social section" id="social" data-nav="#journey">
+      <div class="container">
+        <header class="social__head">
+          <div>
+            <p class="index" data-reveal><span>09</span>— Social</p>
+            <h2 class="display" data-reveal>Follow the <em>Journey</em></h2>
+          </div>
+          <a class="btn btn--line" href="#" data-href="social.instagramUrl" data-reveal>
+            Follow&nbsp;<span data-text="social.instagramHandle">@username</span>
+          </a>
+        </header>
+
+        <div class="social__grid" data-stagger>
+          <a class="social__item" href="#" data-href="social.instagramUrl" data-reveal aria-label="Instagram post 01">
+            <span class="media media--sm" data-img="social01" data-label="Social Image 01" data-alt="[Alt text: social post 01]"></span>
+          </a>
+          <a class="social__item" href="#" data-href="social.instagramUrl" data-reveal aria-label="Instagram post 02">
+            <span class="media media--sm" data-img="social02" data-label="Social Image 02" data-alt="[Alt text: social post 02]"></span>
+          </a>
+          <a class="social__item" href="#" data-href="social.instagramUrl" data-reveal aria-label="Instagram post 03">
+            <span class="media media--sm" data-img="social03" data-label="Social Image 03" data-alt="[Alt text: social post 03]"></span>
+          </a>
+          <a class="social__item" href="#" data-href="social.instagramUrl" data-reveal aria-label="Instagram post 04">
+            <span class="media media--sm" data-img="social04" data-label="Social Image 04" data-alt="[Alt text: social post 04]"></span>
+          </a>
+          <a class="social__item" href="#" data-href="social.instagramUrl" data-reveal aria-label="Instagram post 05">
+            <span class="media media--sm" data-img="social05" data-label="Social Image 05" data-alt="[Alt text: social post 05]"></span>
+          </a>
+          <a class="social__item" href="#" data-href="social.instagramUrl" data-reveal aria-label="Instagram post 06">
+            <span class="media media--sm" data-img="social06" data-label="Social Image 06" data-alt="[Alt text: social post 06]"></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================== CONTACT ============================= -->
+    <!-- ✎ EDIT: CONTACT (details come from SITE CONFIG) -->
+    <section class="contact section" id="contact">
+      <div class="container">
+        <p class="index index--light" data-reveal><span>10</span>— Contact</p>
+        <h2 class="contact__title" data-reveal>Your smile deserves <em>precision.</em></h2>
+        <p class="contact__text" data-reveal>For consultations, inquiries, or treatment planning.</p>
+        <div class="contact__ctas" data-reveal>
+          <a class="btn btn--light" href="#contact" data-href="contact.bookingUrl">Book a consultation <span class="btn__arrow" aria-hidden="true"></span></a>
+          <a class="btn btn--line-light" href="#contact-details" data-mailto="contact.email">Contact</a>
+        </div>
+
+        <dl class="contact__info" id="contact-details" data-stagger>
+          <div data-reveal>
+            <dt>Phone</dt>
+            <dd><a href="#contact-details" data-tel="contact.phone" data-text="contact.phone">[Phone Number]</a></dd>
+          </div>
+          <div data-reveal>
+            <dt>Email</dt>
+            <dd><a href="#contact-details" data-mailto="contact.email" data-text="contact.email">[Email]</a></dd>
+          </div>
+          <div data-reveal>
+            <dt>Location</dt>
+            <dd data-text="contact.location">[Location]</dd>
+          </div>
+          <div data-reveal>
+            <dt>Instagram</dt>
+            <dd><a href="#" data-href="social.instagramUrl" data-text="social.instagramHandle">[@username]</a></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- =============================== FOOTER =============================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <p class="footer__name" data-text="doctor.shortName">Dr. [Name]</p>
+          <p class="footer__role" data-text="doctor.title">Dentist / Specialist</p>
+        </div>
+
+        <nav class="footer__nav" aria-label="Footer">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#expertise">Expertise</a>
+          <a href="#cases">Cases</a>
+          <a href="#journey">Journey</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="footer__social">
+          <a href="#" data-href="social.instagramUrl">Instagram</a>
+          <a href="#" data-href="social.whatsappUrl">WhatsApp</a>
+          <a href="#contact" data-mailto="contact.email">Email</a>
+        </div>
+      </div>
+
+      <p class="footer__wordmark" aria-hidden="true" data-text="doctor.shortName">Dr. [Name]</p>
+
+      <div class="footer__bottom">
+        <p>© <span data-year>2026</span> <span data-text="doctor.shortName">Dr. [Name]</span>. All rights reserved.</p>
+        <a href="#home" class="footer__top-link">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ========================= CASE STUDY WINDOW ========================= -->
+  <div class="modal" id="caseModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel">
+      <div class="modal__bar">
+        <p class="modal__count"><span id="modalIndex">01</span> <span class="modal__sep">/</span> <span id="modalTotal">06</span></p>
+        <div class="modal__controls">
+          <button class="modal__btn" type="button" data-prev aria-label="Previous case"><span class="arrow arrow--l" aria-hidden="true"></span></button>
+          <button class="modal__btn" type="button" data-next aria-label="Next case"><span class="arrow" aria-hidden="true"></span></button>
+          <button class="modal__close" type="button" data-close>Close <span class="modal__x" aria-hidden="true"></span></button>
+        </div>
+      </div>
+
+      <div class="modal__body">
+        <div class="modal__hero">
+          <span class="media" id="modalHero" data-eager role="img" aria-label="Case image"></span>
+        </div>
+
+        <div class="modal__content">
+          <p class="eyebrow" id="modalEyebrow">Case 01</p>
+          <h2 class="modal__title" id="modalTitle">Smile Transformation</h2>
+          <p class="modal__treatment" id="modalTreatment">[Treatment]</p>
+          <p class="modal__lead" id="modalDesc">[Description]</p>
+
+          <div class="modal__pair">
+            <figure>
+              <span class="media media--alt" id="modalBefore" data-eager role="img" aria-label="Before"></span>
+              <figcaption>Before</figcaption>
+            </figure>
+            <figure>
+              <span class="media" id="modalAfter" data-eager role="img" aria-label="After"></span>
+              <figcaption>After</figcaption>
+            </figure>
+          </div>
+
+          <div class="modal__details" id="modalDetails"></div>
+
+          <p class="modal__note">Placeholder imagery. Replace only with documented patient photography published with written consent.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
